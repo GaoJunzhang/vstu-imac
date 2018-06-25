@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.study</groupId>
-    <artifactId>springboot-shiro</artifactId>
+    <artifactId>vstu-imac</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>springboot-shiro</name>
+    <name>vstu-imac</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
@@ -66,6 +66,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.11</version>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.nekohtml</groupId>
@@ -141,7 +142,7 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>${mysql.version}</version>
+                        <version>8.0.11</version>
                     </dependency>
                     <dependency>
                         <groupId>tk.mybatis</groupId>

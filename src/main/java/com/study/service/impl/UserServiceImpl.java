@@ -66,6 +66,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         if (user.getEnable() != null) {
             criteria.andEqualTo("enable", user.getEnable());
         }
+        criteria.andEqualTo("level",user.getLevel());
         //分页查询
         PageHelper.startPage(page, length);
         List<User> userList = selectByExample(example);

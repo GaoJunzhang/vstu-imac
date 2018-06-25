@@ -30,7 +30,7 @@ public class PasswordHelper {
 		PasswordHelper passwordHelper = new PasswordHelper();
 		User user = new User();
 		user.setUsername("admin");
-			user.setPassword("888888");
+			user.setPassword("123456");
 		passwordHelper.encryptPassword(user);
 		System.out.println(user);
 //        System.out.print(passwordHelper.getPassword("888888"));

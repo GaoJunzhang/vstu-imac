@@ -16,6 +16,8 @@
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="mac" jdbcType="VARCHAR" property="mac" />
     <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
   </resultMap>
     <insert id="addUserFile" parameterType="com.study.model.UserFile" useGeneratedKeys="true">
         insert into user_file(userId, fileId) values(#{userId}, #{fileId})

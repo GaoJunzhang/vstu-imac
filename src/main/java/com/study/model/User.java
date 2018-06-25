@@ -51,6 +51,10 @@ public class User implements Serializable{
      */
     private String category;
 
+    private String remark;
+
+    @Column(name = "parent_id")
+    private String parentId;
     /**
      * @return id
      */
@@ -236,5 +240,21 @@ public class User implements Serializable{
      */
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 }
