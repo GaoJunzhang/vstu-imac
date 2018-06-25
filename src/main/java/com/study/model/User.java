@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Table(name = "user")
-public class User implements Serializable{
+public class User implements Serializable {
     private static final long serialVersionUID = -8736616045315083846L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,10 +51,14 @@ public class User implements Serializable{
      */
     private String category;
 
+    /**
+     * 备注
+     */
     private String remark;
 
     @Column(name = "parent_id")
-    private String parentId;
+    private Integer parentId;
+
     /**
      * @return id
      */
@@ -242,19 +246,35 @@ public class User implements Serializable{
         this.category = category;
     }
 
+    /**
+     * 获取备注
+     *
+     * @return remark - 备注
+     */
     public String getRemark() {
         return remark;
     }
 
+    /**
+     * 设置备注
+     *
+     * @param remark 备注
+     */
     public void setRemark(String remark) {
         this.remark = remark;
     }
 
-    public String getParentId() {
+    /**
+     * @return parent_id
+     */
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(String parentId) {
+    /**
+     * @param parentId
+     */
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 }
