@@ -63,8 +63,11 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         if (StringUtil.isNotEmpty(user.getRealname())) {
             criteria.andLike("realname", "%" + user.getRealname() + "%");
         }
+        if (user.getParentId()!=null){
+            criteria.andEqualTo("parentId",user.getParentId());
+        }
         if (user.getEnable() != null) {
-            criteria.andEqualTo("enable", user.getEnable());
+            criteria.andEqualTo("enable", 1);
         }
         criteria.andEqualTo("level",user.getLevel());
         //分页查询
@@ -102,6 +105,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     public void delUser(Integer userid) {
         //删除用户表
         mapper.deleteByPrimaryKey(userid);
+        //删除子账号
         //删除用户角色表
         Example example = new Example(UserRole.class);
         Example.Criteria criteria = example.createCriteria();
@@ -304,5 +308,26 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     public List<User> findAll(){
         Example example = new Example(User.class);
         return selectByExample(example);
+    }
+
+    @Override
+    public void batchDeleteUser(List<User> list){
+        userMapper.batchDeleteUser(list);
+        //删除子账号
+        for (int i=0;i<list.size();i++){
+            userMapper.delUserByparent(list.get(i).getId(),0);
+        }
+    }
+
+    @Override
+    public int delUserByparent(int id,int enable){
+        return userMapper.delUserByparent(id,enable);
+    }
+
+    @Override
+    public void delAllLevel(int id,int enable){
+        userMapper.updateEnable(id,enable);
+        //删除子账号
+        userMapper.delUserByparent(id,enable);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -94,7 +95,20 @@ public class HomeController {
 
     @RequestMapping(value = "/fileSources")
     public String fileSources() {
-        return "fileSources//fileSources";
+        return "fileSources/fileSources";
+    }
+
+    @RequestMapping(value = "/studentPage")
+    public String studentPage(Model model, @RequestParam(value = "mainId",required = true) int mainId,@RequestParam(value = "mainName") String mainName) {
+
+        model.addAttribute("mainId",mainId);
+        model.addAttribute("mainName",mainName+"的学生列表");
+        return "student/student";
+    }
+
+    @RequestMapping(value = {"/workPage",""})
+    public String workPage() {
+        return "workPage/workPage";
     }
 
 }

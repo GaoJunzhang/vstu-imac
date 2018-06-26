@@ -22,4 +22,22 @@
     <insert id="addUserFile" parameterType="com.study.model.UserFile" useGeneratedKeys="true">
         insert into user_file(userId, fileId) values(#{userId}, #{fileId})
     </insert>
+  <update id="batchDeleteUser" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+      update user
+      <set>enable=#{item.enable}</set>
+      where id=#{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <update id="delUserByparent" parameterType="int">
+    UPDATE user
+    <set>enable=#{enable}</set>
+    where parent_id=#{id}
+  </update>
+
+  <update id="updateEnable" parameterType="int">
+    UPDATE user
+    <set>enable=#{enable}</set>
+    where id=#{id}
+  </update>
 </mapper>

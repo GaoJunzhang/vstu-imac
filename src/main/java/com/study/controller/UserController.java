@@ -221,4 +221,39 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/updatePwd",method = RequestMethod.POST)
+    public String updatePwd(HttpSession session,@RequestParam(value = "newPwd")String newPwd,@RequestParam("uid") int uid){
+        User user = userService.selectByKey(uid);
+        if (user == null)
+            return "error";
+        try {
+            user.setEnable(1);
+            user.setPassword(newPwd);
+            PasswordHelper passwordHelper = new PasswordHelper();
+            passwordHelper.encryptPassword(user);
+            userService.updateEquipmentNoByUsername(user);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+    @RequestMapping(value = "/updateRemark",method = RequestMethod.POST)
+    public String updateRemark(HttpSession session,@RequestParam(value = "remark")String remark,@RequestParam("uid") int uid){
+        User user = userService.selectByKey(uid);
+        if (user == null)
+            return "error";
+        try {
+            user.setEnable(1);
+            user.setRemark(remark);
+            PasswordHelper passwordHelper = new PasswordHelper();
+            passwordHelper.encryptPassword(user);
+            userService.updateEquipmentNoByUsername(user);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
 }

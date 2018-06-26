@@ -29,4 +29,11 @@ public interface UserService extends IService<User>{
 
     List<User> findAll();
 
+    public void batchDeleteUser(List<User> list);
+
+    public int delUserByparent(int id,int enable);
+
+    public void delAllLevel(int id,int enable);
+
+
 }
