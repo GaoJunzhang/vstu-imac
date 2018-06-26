@@ -10,9 +10,14 @@
     <result column="fileaddress" jdbcType="VARCHAR" property="fileaddress" />
     <result column="filedescription" jdbcType="VARCHAR" property="filedescription" />
     <result column="fileimgsrc" jdbcType="VARCHAR" property="fileimgsrc" />
-    <result column="createtime" jdbcType="DATE" property="createtime" />
+    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
     <result column="enable" jdbcType="VARCHAR" property="enable" />
-      <result column="filetype" jdbcType="VARCHAR" property="enable" />
+    <result column="filetype" jdbcType="VARCHAR" property="filetype" />
+    <result column="subtitle" jdbcType="VARCHAR" property="subtitle" />
+    <result column="disciplines" jdbcType="VARCHAR" property="disciplines" />
+    <result column="pdfurl" jdbcType="VARCHAR" property="pdfurl" />
+    <result column="appvideourl" jdbcType="VARCHAR" property="appvideourl" />
+    <result column="package_name" jdbcType="VARCHAR" property="packageName" />
   </resultMap>
     <select id="loadFileResources" parameterType="String" resultType="com.study.model.FileInfo">
         SELECT

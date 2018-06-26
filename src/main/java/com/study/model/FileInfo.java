@@ -1,9 +1,8 @@
 package com.study.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Table(name = "file_info")
 public class FileInfo {
     private static final long serialVersionUID = -6812242071705361506L;
     @Id
@@ -14,6 +13,9 @@ public class FileInfo {
 
     private String fileaddress;
 
+    /**
+     * 设备描述
+     */
     private String filedescription;
 
     private String fileimgsrc;
@@ -22,14 +24,29 @@ public class FileInfo {
 
     private String enable;
 
+    /**
+     * 资源类型（0-应用，1-视频）
+     */
     private String filetype;
 
+    /**
+     * 副标题
+     */
     private String subtitle;
 
+    /**
+     * 学科
+     */
     private String disciplines;
 
+    /**
+     * pdf
+     */
     private String pdfurl;
 
+    /**
+     * app视频
+     */
     private String appvideourl;
 
     public FileInfo() {
@@ -50,6 +67,8 @@ public class FileInfo {
         this.pdfurl=pdfurl;
         this.appvideourl=appvideourl;
     }
+    @Column(name = "package_name")
+    private String packageName;
 
     /**
      * @return id
@@ -94,14 +113,18 @@ public class FileInfo {
     }
 
     /**
-     * @return filedescription
+     * 获取设备描述
+     *
+     * @return filedescription - 设备描述
      */
     public String getFiledescription() {
         return filedescription;
     }
 
     /**
-     * @param filedescription
+     * 设置设备描述
+     *
+     * @param filedescription 设备描述
      */
     public void setFiledescription(String filedescription) {
         this.filedescription = filedescription;
@@ -149,43 +172,107 @@ public class FileInfo {
         this.enable = enable;
     }
 
+    /**
+     * 获取资源类型（0-应用，1-视频）
+     *
+     * @return filetype - 资源类型（0-应用，1-视频）
+     */
     public String getFiletype() {
         return filetype;
     }
 
+    /**
+     * 设置资源类型（0-应用，1-视频）
+     *
+     * @param filetype 资源类型（0-应用，1-视频）
+     */
     public void setFiletype(String filetype) {
         this.filetype = filetype;
     }
 
+    /**
+     * 获取副标题
+     *
+     * @return subtitle - 副标题
+     */
     public String getSubtitle() {
         return subtitle;
     }
 
+    /**
+     * 设置副标题
+     *
+     * @param subtitle 副标题
+     */
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
     }
 
+    /**
+     * 获取学科
+     *
+     * @return disciplines - 学科
+     */
     public String getDisciplines() {
         return disciplines;
     }
 
+    /**
+     * 设置学科
+     *
+     * @param disciplines 学科
+     */
     public void setDisciplines(String disciplines) {
         this.disciplines = disciplines;
     }
 
+    /**
+     * 获取pdf
+     *
+     * @return pdfurl - pdf
+     */
     public String getPdfurl() {
         return pdfurl;
     }
 
+    /**
+     * 设置pdf
+     *
+     * @param pdfurl pdf
+     */
     public void setPdfurl(String pdfurl) {
         this.pdfurl = pdfurl;
     }
 
+    /**
+     * 获取app视频
+     *
+     * @return appvideourl - app视频
+     */
     public String getAppvideourl() {
         return appvideourl;
     }
 
+    /**
+     * 设置app视频
+     *
+     * @param appvideourl app视频
+     */
     public void setAppvideourl(String appvideourl) {
         this.appvideourl = appvideourl;
+    }
+
+    /**
+     * @return package_name
+     */
+    public String getPackageName() {
+        return packageName;
+    }
+
+    /**
+     * @param packageName
+     */
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 }
