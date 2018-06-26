@@ -67,7 +67,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
             criteria.andEqualTo("parentId",user.getParentId());
         }
         if (user.getEnable() != null) {
-            criteria.andEqualTo("enable", 1);
+            criteria.andEqualTo("enable", user.getEnable());
         }
         criteria.andEqualTo("level",user.getLevel());
         //分页查询

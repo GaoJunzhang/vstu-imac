@@ -1,15 +1,15 @@
 package com.study.controller;
 
+import com.study.model.Download;
 import com.study.model.FileInfo;
 import com.study.model.User;
 import com.study.result.JsonResult;
 import com.study.result.ResultCode;
+import com.study.service.DownloadService;
 import com.study.service.FileInfoService;
 import com.study.service.UserService;
-import com.study.util.PasswordHelper;
 import com.study.util.VTools;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpRequest;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +26,16 @@ import java.util.List;
  * Created by user on 2018/3/28.
  */
 @RestController
-@RequestMapping(value = "/api/web")
+@RequestMapping(value = "/api/web/imac")
 public class WebController {
     @Resource
     private FileInfoService fileInfoService;
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private DownloadService downloadService;
 
     @RequestMapping(value = "/getUserFiles", method = RequestMethod.POST)
     public List<FileInfo> getUserFiles(@Param("username") String username, HttpServletRequest request) {
@@ -45,9 +48,9 @@ public class WebController {
         if (VTools.StringIsNullOrSpace(username)) {
             return list;
         }
-        User user = userService.selectByUsername(username);
+//        User user = userService.selectByUsername(username);
         List<FileInfo> fileInfoList = fileInfoService.loadFileResources(username);
-        if (fileInfoList.size()>0){
+       /* if (fileInfoList.size()>0){
             for (int i=0;i<fileInfoList.size();i++){
                 if ("1".equals(user.getCategory())){
                     if (fileInfoList.get(i).getFileaddress().contains(".exe")){
@@ -55,11 +58,11 @@ public class WebController {
                     }
                 }
             }
-        }
+        }*/
         return fileInfoList;
     }
 
-    @RequestMapping(value = "/loginVerifyAndUpdateequipmentNo", method = RequestMethod.POST)
+   /* @RequestMapping(value = "/loginVerifyAndUpdateequipmentNo", method = RequestMethod.POST)
     public String loginVerifyAndUpdateequipmentNo(@Param("equipmentno") String equipmentno, @Param("uname") String uname, @Param("pwd") String pwd) {
 
         if (VTools.StringIsNullOrSpace(uname)) {
@@ -92,7 +95,7 @@ public class WebController {
             return "faile";
         }
     }
-
+*/
     @RequestMapping("/updateMac")
     public Object updateMac(@RequestBody User user) {
         JsonResult jsonResult;
@@ -122,6 +125,27 @@ public class WebController {
         user1.setMac(user.getMac());
         userService.updateEquipmentNoByUsername(user1);
         jsonResult = new JsonResult(ResultCode.SUCCESS, "激活成功", true);
+        return jsonResult;
+    }
+
+    @RequestMapping(value = "/putDownloadCount",method = RequestMethod.POST)
+    public Object putDownloadCount(@Param("fileName") String  fileName,HttpServletRequest request) {
+        FileInfo fileInfo = fileInfoService.selectByFilename(fileName.trim());
+        String uid = request.getAttribute("userid")+"";
+        String uName = request.getAttribute("username")+"";
+        JsonResult jsonResult;
+        if (fileInfo==null){
+            jsonResult = new JsonResult(ResultCode.PARAMS_ERROR, "该视频不存在", null);
+            return jsonResult;
+        }
+        Download download = new Download();
+        download.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        download.setFileId(fileInfo.getId());
+        download.setUid(Integer.parseInt(uid));
+        download.setFileName(fileName);
+        download.setUsername(uName);
+        downloadService.save(download);
+        jsonResult = new JsonResult(ResultCode.SUCCESS,"成功",true);
         return jsonResult;
     }
 

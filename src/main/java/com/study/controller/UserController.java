@@ -41,6 +41,7 @@ public class UserController {
                                       @RequestParam(required = false, defaultValue = "1") int start,
                                       @RequestParam(required = false, defaultValue = "10") int length) {
         Map<String, Object> map = new HashMap<>();
+        user.setEnable(1);
         PageInfo<User> pageInfo = userService.selectByPage(user, start, length);
         map.put("draw", draw);
         map.put("recordsTotal", pageInfo.getTotal());
@@ -90,7 +91,7 @@ public class UserController {
     @RequestMapping(value = "/delete")
     public String delete(Integer id) {
         try {
-            userService.delUser(id);
+            userService.delAllLevel(id,0);
             return "success";
         } catch (Exception e) {
             e.printStackTrace();

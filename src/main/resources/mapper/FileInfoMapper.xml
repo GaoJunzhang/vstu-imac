@@ -15,19 +15,26 @@
       <result column="filetype" jdbcType="VARCHAR" property="enable" />
   </resultMap>
     <select id="loadFileResources" parameterType="String" resultType="com.study.model.FileInfo">
-SELECT * from file_info fi where EXISTS(
-SELECT 1 from user_file uf where uf.fileId=fi.id
-
- and EXISTS(
-select 1 from user u where u.username=#{username} and uf.userId=u.id
-))
-UNION
-SELECT * from file_info fi where EXISTS(
-SELECT 1 from file_role fr where fr.fileid=fi.id
-
- AND EXISTS(
-SELECT 1 from user_role ur where ur.roleId=fr.roleid and EXISTS(
-select 1 from user u where u.username=#{username} and u.id=ur.userId
-)))
+        SELECT
+            *
+        FROM
+            file_info fi
+        WHERE
+            EXISTS (
+                SELECT
+                    1
+                FROM
+                    user_file uf
+                WHERE
+                    uf.fileId = fi.id
+                AND EXISTS (
+                    SELECT
+                        1
+                    FROM
+                        user u
+                    WHERE
+                        u.username = #{username} and (uf.userId=u.id or uf.userId=u.parent_id)
+                )
+            )
     </select>
 </mapper>

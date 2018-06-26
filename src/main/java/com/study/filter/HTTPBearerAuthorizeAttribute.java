@@ -69,6 +69,7 @@ public class HTTPBearerAuthorizeAttribute implements Filter {
                 if ( claims!= null)
                 {
                     request.setAttribute("username",claims.get("username"));
+                    request.setAttribute("userid",claims.get("userid"));
                     chain.doFilter(request, response);
                     return;
                 }
