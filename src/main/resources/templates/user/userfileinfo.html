@@ -210,7 +210,8 @@
             layer.msg('请选择一条数据');
             return;
         }
-        window.location.href="filesource/editfileView?id="+table.row($(".checkchild:checked").value).data().id;
+        window.location.href="filesource/editfileView?id="+$(".checkchild:checked").val();
+//        window.location.href="filesource/editfileView?id="+table.row($(".checkchild:checked").value).data().id;
     }
 
     function addUserFile() {
