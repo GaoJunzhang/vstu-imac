@@ -66,11 +66,32 @@ public class FileSourcesController {
 
     @RequestMapping(value = "/ossFileSource")
     public String ossFileSource(Model model, String filename) {
+        List<OSSObjectSummary> objectSummaries = null;
+        OSSManageUtil ossManageUtil = new OSSManageUtil();
+        List<Map> listVideo = new ArrayList<>();
         if (filename.contains(".apk")){
             model.addAttribute("isVideo",true);
+            String strTemp = "";
+            try {
+                objectSummaries = ossManageUtil.getOSSobjectSummary("vstu");
+                for (int i = 0; i < objectSummaries.size(); i++) {
+                    strTemp = objectSummaries.get(i).getKey();
+                    if (strTemp.contains("lefile")) {
+                        Map map = new HashMap();
+                        map.put("address", accessUrl + "/" + strTemp);
+                        map.put("name", strTemp.replace("lefile/", ""));
+                        if (!strTemp.contains(".apk")) {
+                            listVideo.add(map);
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }else {
             model.addAttribute("isVideo",false);
         }
+        model.addAttribute("listVideo",listVideo);
         model.addAttribute("fileD",filename);
         model.addAttribute("filename", accessUrl + "/lefile/" + filename);
         return "fileSources/filesource";

@@ -58,8 +58,8 @@
                         </div>
                         <button type="button"  onclick="search();" class="btn btn-primary">查询</button>
                         <button type="button"  onclick="resert();" class="btn btn-info">重置</button>
-                        <button shiro:hasPermission="/fileinfos/downLoadExcel" type="button"  onclick="downLoadExcel();" class="btn btn-info" style="float: right; margin-right: 1px;"><i class="icon-download"></i>导出</button>
-                        <button shiro:hasPermission="/fileinfos/saveFileRoles" type="button"  onclick="allotRole();" class="btn btn-info" style="float: right; margin-right: 1px;"><span class="icon-wrench"></span>分配资源</button>
+                        <!--<button shiro:hasPermission="/fileinfos/downLoadExcel" type="button"  onclick="downLoadExcel();" class="btn btn-info" style="float: right; margin-right: 1px;"><i class="icon-download"></i>导出</button>
+                        <button shiro:hasPermission="/fileinfos/saveFileRoles" type="button"  onclick="allotRole();" class="btn btn-info" style="float: right; margin-right: 1px;"><span class="icon-wrench"></span>分配资源</button>-->
                         <button shiro:hasPermission="/filesource/edit" type="button"  onclick="editFile()" class="btn btn-warning" style="float: right; margin-right: 1px;"><span class="icon-edit"></span>修改</button>
                         <button shiro:hasPermission="/fileinfos/delete" type="button"  onclick="delByID();" class="btn btn-danger" style="float: right; margin-right: 1px;"><i class=" icon-minus"></i>删除</button>
                         <button shiro:hasPermission="/filesource/add" type="button"  onclick="addFileView()" class="btn btn-success" style="float: right; margin-right: 1px;"><span class="icon-plus"></span>新增</button>

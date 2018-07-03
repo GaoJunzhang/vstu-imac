@@ -1,5 +1,7 @@
 package com.study.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import javax.persistence.*;
 
@@ -20,6 +22,7 @@ public class LoginLog {
     /**
      * @return id
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Integer getId() {
         return id;
     }
