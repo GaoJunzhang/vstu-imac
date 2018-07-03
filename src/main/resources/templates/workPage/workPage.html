@@ -34,7 +34,7 @@
 
                 <div class="widget-box">
                     <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-                        <h5>客户端登录记录列表</h5>
+                        <h5>创客资源使用记录列表</h5>
                     </div>
                     <div class="widget-content nopadding">
                         <table class="table table-bordered data-table" id="datatable" >
@@ -45,6 +45,7 @@
                                 </th>
                                 <th>ID</th>
                                 <th>用户名称</th>
+                                <th>使用资源</th>
                                 <th>登录地址</th>
                                 <th>登录时间</th>
                             </tr>
@@ -60,7 +61,7 @@
 
                 <div class="widget-box">
                     <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-                        <h5>资源下载记录列表</h5>
+                        <h5>平台资源下载记录列表</h5>
                     </div>
                     <div class="widget-content nopadding">
                         <table class="table table-bordered data-table" id="downdatatable" >
@@ -123,6 +124,7 @@
                 },
                 { "data": "id" },
                 { "data": "username" },
+                { "data": "fileName" },
                 { "data": "ip" },
                 { "data": "loginTime" }
             ],
@@ -130,7 +132,8 @@
                 { "orderable": false, "targets": 1 },
                 { "orderable": false, "targets": 2 },
                 { "orderable": false, "targets": 3 },
-                { "orderable": false, "targets": 4 }
+                { "orderable": false, "targets": 4 },
+                { "orderable": false, "targets": 5 }
             ]
 
         } );

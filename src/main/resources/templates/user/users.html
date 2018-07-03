@@ -500,7 +500,7 @@
                         if(data!=null){
                             return "<div align='center'><p><button style='margin-left: 10px' class=\"btn btn-success\" onclick=\"$('#editPasswor').modal();$('#pwd_uid').val("+data+")\">修改密码</button>" +
                                 "<button class=\"btn btn-success\" style='margin-left: 10px' onclick=\"$('#editRemark').modal();$('#remark_uid').val("+data+");$('#newRemark').val('"+row.remark+"')\">修改备注</button>" +
-                                "<button class=\"btn btn-success\" style='margin-left: 10px' onclick=\"setTeacherFile('"+data+"')\">分配资源</button>" +
+                                "<button class=\"btn btn-success\" style='margin-left: 10px' onclick=\"setTeacherFile('"+data+"','0')\">分配资源</button>" +
                                 "<button class=\"btn btn-success\" style='margin-left: 10px' onclick=\"setStudent('"+data+"','"+row.username+"')\">管理学生</button></p></div>";
                         }
                     },
@@ -594,6 +594,7 @@
                         if(data!=null){
                             return "<div align='center'><p><button style='margin-left: 10px' class=\"btn btn-success\" onclick=\"$('#editPasswor').modal()\">修改密码</button>" +
                                 "<button class=\"btn btn-success\" style='margin-left: 10px' onclick=\"resetMac("+data+")\">重置MAC</button>"+
+                                "<button class=\"btn btn-success\" style='margin-left: 10px' onclick=\"setTeacherFile('"+data+"','1')\">分配资源</button>"+
                                 "<button class=\"btn btn-success\" style='margin-left: 10px' onclick=\"$('#editRemark').modal();$('#remark_uid').val("+data+");$('#newRemark').val('"+row.remark+"')\">修改备注</button>";
                         }
                     },
@@ -937,8 +938,8 @@
             });
         });
     }
-    function setTeacherFile(uid) {
-        window.location.href = "filesource/viewUserFile?userid=" + uid;
+    function setTeacherFile(uid,flag) {
+            window.location.href = "filesource/viewUserFile?userid=" + uid+"&fileClass="+flag;
     }
     function setStudent(uid,uname) {
         window.location.href = "studentPage?mainId=" + uid+"&mainName="+uname;

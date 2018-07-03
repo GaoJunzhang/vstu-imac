@@ -1,11 +1,14 @@
 package com.study.controller;
 
+import com.study.bean.UserBean;
 import com.study.config.Audience;
+import com.study.model.FileInfo;
 import com.study.model.LoginLog;
 import com.study.model.TokenBean;
 import com.study.model.User;
 import com.study.result.JsonResult;
 import com.study.result.ResultCode;
+import com.study.service.FileInfoService;
 import com.study.service.LoginLogService;
 import com.study.service.UserService;
 import com.study.util.JwtHelper;
@@ -35,8 +38,11 @@ public class JsonWebToken {
     @Autowired
     private LoginLogService loginLogService;
 
+    @Autowired
+    private FileInfoService fileInfoService;
+
     @RequestMapping("oauth/token")
-    public Object getAccessToken(@RequestBody User user, HttpServletRequest request) {
+    public Object getAccessToken(@RequestBody UserBean user, HttpServletRequest request) {
         JsonResult jsonResult;
         if (StringUtils.isEmpty(user.getUsername())) {
             jsonResult = new JsonResult(ResultCode.PARAMS_ERROR, "账号为空", null);
@@ -47,12 +53,20 @@ public class JsonWebToken {
             jsonResult = new JsonResult(ResultCode.NOT_LOGIN, "账号错误", null);
             return jsonResult;
         } else {
+            User user1 = new User();
+            user1.setUsername(user.getUsername());
+            user1.setPassword(user.getPassword());
             PasswordHelper passwordHelper = new PasswordHelper();
-            passwordHelper.encryptPassword(user);
-            if (user.getPassword().compareTo(userBean.getPassword()) != 0) {
+            passwordHelper.encryptPassword(user1);
+            if (user1.getPassword().compareTo(userBean.getPassword()) != 0) {
                 jsonResult = new JsonResult(ResultCode.NOT_LOGIN, "密码错误", null);
                 return jsonResult;
             }
+        }
+        FileInfo fileInfo = fileInfoService.selectByFilename(user.getFileName());
+        if (fileInfo==null){
+            jsonResult = new JsonResult(ResultCode.PARAMS_ERROR, "资源为空", null);
+            return jsonResult;
         }
         String rip = getIpAddr(request);
         LoginLog loginLog = new LoginLog();
@@ -60,6 +74,7 @@ public class JsonWebToken {
         loginLog.setLoginTime(new Timestamp(System.currentTimeMillis()));
         loginLog.setUid(userBean.getId());
         loginLog.setUsername(userBean.getUsername());
+        loginLog.setFileName(user.getFileName());
         loginLogService.save(loginLog);
         //拼装accessToken
         String accessToken = JwtHelper.createJWT(user.getUsername(), String.valueOf(userBean.getId()),

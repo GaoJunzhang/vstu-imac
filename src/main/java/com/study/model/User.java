@@ -59,6 +59,10 @@ public class User implements Serializable {
     @Column(name = "parent_id")
     private Integer parentId;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     /**
      * @return id
      */

@@ -155,21 +155,22 @@
             <div class="form-group" id="AppDiv">
                 <label class="col-sm-2 control-label">应用视频:</label>
                 <div class="col-sm-10">
-                    <input id="appVideoFile" name="appVideoFile" type="file" style="display: none;"/>
+                    <!--<input id="appVideoFile" name="appVideoFile" type="file" style="display: none;"/>-->
+                    <input id="appvideourl" name="appvideourl" type="hidden"/>
                     <div class="input-append">
 
-                        <input id="appVideoUrl" readonly name="appVideoUrl" class="col-sm-6 input-large" type="text"
+                        <input id="appvideoName" readonly name="appvideoName" class="col-sm-6 input-large" type="text"
                                style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"
                                placeholder="文件上传"/>
-                        <a class="col-sm-4 btn" onclick="$('input[id=appVideoFile]').click();"
-                           style="background-color:#ADFF2F; height:30px; color:#ffffff; width:100px;">上传</a>
+                        <!--<a class="col-sm-4 btn" onclick="$('input[id=appVideoFile]').click();"-->
+                        <!--style="background-color:#ADFF2F; height:30px; color:#ffffff; width:100px;">上传</a>-->
                         <a class="col-sm-4 btn" onclick="showOssFile()"
                            style="background-color: #ff6e00; height:30px; color:#ffffff; width:100px;">选择云盘</a>
                     </div>
                     <script type="text/javascript">
-                        $('input[id=appVideoFile]').change(function () {
-                            $('#appVideoUrl').val($(this).val());
-                        });
+                        // $('input[id=appVideoFile]').change(function () {
+                        //     $('#appVideoUrl').val($(this).val());
+                        // });
                         function showOssFile() {
                             $('#ossFile').modal();
                         }
@@ -230,17 +231,19 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="addroleLabel">资源选择</h4>
+                    <input type="hidden" id="tmpVideoName"/>
+                    <input type="hidden" id="tmpVideoUrl"/>
                 </div>
                 <div class="modal-body">
                     <div class="quick-actions_homepage">
                         <ul class="quick-actions"  id="video-ul">
-                            <li th:each="fileVideo:${listVideo}" class="bg_lg"><a href="#" onclick="selectVideo(this)"><div> <i class="icon-facetime-video"></i><span th:text="${fileVideo.name}"></span></a></li>
+                            <li th:each="fileVideo:${listVideo}" th:value="${fileVideo.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileVideo.name}"></span></a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" onclick="addUser();" class="btn btn-primary">保存</button>
+                    <button type="button" onclick="selectVideo();" class="btn btn-primary">保存</button>
                 </div>
             </div>
         </div>
@@ -266,10 +269,13 @@
         $("#AppDiv").hide();
         $("#pdfDiv").hide();
         $("#mask").hide();
-//        $("ul").on("click","li",function(){
-//            $("ul li").removeClass("nav-active");
-//            $(this).addClass("backgr","#2E363F");
-//        });
+        $("#video-ul li").click(
+
+            function() {
+                $(this).css("background","#2E363F").siblings().css("background","#28b779");
+                $("#tmpVideoName").val($(this).text());
+                $("#tmpVideoUrl").val($(this).attr("value"));
+            });
     })
     //兼容火狐、IE8
     //显示遮罩层
@@ -290,9 +296,9 @@
         showMask();
         $("form").submit();
     }
-/*    function backToSource() {
-        window.location.href = "/ossFileSources";
-    }*/
+    /*    function backToSource() {
+            window.location.href = "/ossFileSources";
+        }*/
     $("select#filetype").change(function () {
         if ($(this).val()==0){
             $("#AppDiv").show();
@@ -303,12 +309,16 @@
             $("#pdfDiv").hide();
         }
     });
-    function selectVideo(obj) {
-        console.log(obj);
-        $("#video-ul li").each(function(){
-            $(this).style.background='#28b779';
-        });
-        obj.style.background='#2E363F';
+    function selectVideo() {
+        var tmpVideoName = $("#tmpVideoName").val();
+        var tmpVideoUrl = $("#tmpVideoUrl").val();
+        if (tmpVideoName==null||tmpVideoName==""||tmpVideoUrl==null||tmpVideoUrl==""){
+            alert("请选择一个视频");
+            return;
+        }
+        $("#appvideoName").val(tmpVideoName);
+        $("#appvideourl").val(tmpVideoUrl);
+        $("#ossFile").modal('hide');
     }
 </script>
 </body>

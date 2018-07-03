@@ -16,6 +16,7 @@ public class LoginLogServiceImpl extends BaseService<LoginLog> implements LoginL
     public PageInfo<LoginLog> selectByPage(LoginLog loginLog, int start, int length, String startDate, String endDate) {
         int page = start / length + 1;
         Example example = new Example(LoginLog.class);
+        example.setOrderByClause("login_time DESC");
         Example.Criteria criteria = example.createCriteria();
         if (StringUtil.isNotEmpty(loginLog.getUsername())) {
             criteria.andLike("username", "%" + loginLog.getUsername() + "%");

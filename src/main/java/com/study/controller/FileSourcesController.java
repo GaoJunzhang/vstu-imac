@@ -99,7 +99,7 @@ public class FileSourcesController {
 
     @RequestMapping(value = "/fileSourceAdd", method = RequestMethod.POST)
     public String fileSourceAdd(@RequestParam("imgfile") MultipartFile imgfile,
-                                @RequestParam("appVideoFile") MultipartFile appVideoFile,
+//                                @RequestParam("appVideoFile") MultipartFile appVideoFile,
                                 @RequestParam("pdffile") MultipartFile pdffile, FileInfo fileInfo) {
         if (fileInfo == null) {
             return "redirect:/fileSources";
@@ -111,17 +111,17 @@ public class FileSourcesController {
                 imgUrl = OSSManageUtil.uploadFile(imgfile, imgfile.getName());
             }
             String appVideoUrl = "";
-            if (!appVideoFile.isEmpty()) {
+      /*      if (!appVideoFile.isEmpty()) {
 
                 appVideoUrl = OSSManageUtil.uploadFile(appVideoFile, appVideoFile.getName());
-            }
+            }*/
             String pdfUrl = "";
             if (!pdffile.isEmpty()) {
 
                 pdfUrl = OSSManageUtil.uploadFile(pdffile, pdffile.getName());
             }
             fileInfo.setFileimgsrc(imgUrl);
-            fileInfo.setAppvideourl(appVideoUrl);
+//            fileInfo.setAppvideourl(appVideoUrl);
             fileInfo.setPdfurl(pdfUrl);
             fileInfo.setCreatetime(VTools.getCurrentDate());
             fileInfoService.save(fileInfo);

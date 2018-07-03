@@ -184,11 +184,11 @@ public class FileSourceController {
 
 
     @RequestMapping(value = "/viewUserFile",method = RequestMethod.GET)
-    public String viewserFile(@RequestParam(value = "userid")String userid,RedirectAttributes model){
+    public String viewserFile(@RequestParam(value = "userid")String userid,@RequestParam(value = "fileClass") String fileClass, RedirectAttributes model){
         User user = userService.selectByUserId(Integer.parseInt(userid));
         model.addFlashAttribute("userid",userid);
         model.addFlashAttribute("username",user.getUsername());
-
+        model.addFlashAttribute("fileClass",fileClass);
         return "redirect:/viewUserFile";
     }
     @RequestMapping("/download")

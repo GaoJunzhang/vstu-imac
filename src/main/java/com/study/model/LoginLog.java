@@ -19,10 +19,12 @@ public class LoginLog {
 
     private String username;
 
+    @Column(name = "file_name")
+    private String fileName;
+
     /**
      * @return id
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Integer getId() {
         return id;
     }
@@ -65,6 +67,7 @@ public class LoginLog {
     /**
      * @return login_time
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getLoginTime() {
         return loginTime;
     }
@@ -88,5 +91,19 @@ public class LoginLog {
      */
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    /**
+     * @return file_name
+     */
+    public String getFileName() {
+        return fileName;
+    }
+
+    /**
+     * @param fileName
+     */
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }
