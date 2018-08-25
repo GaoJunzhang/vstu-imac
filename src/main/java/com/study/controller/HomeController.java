@@ -125,7 +125,42 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/editfileView")
-    public String editfileView() {
+    public String editfileView(Model model) {
+
+        OSSManageUtil ossManageUtil = new OSSManageUtil();
+        List<OSSObjectSummary> objectSummaries = null;
+        try {
+            objectSummaries = ossManageUtil.getOSSobjectSummary("vstu");
+            List<Map> listApp = new ArrayList<>();
+            List<Map> listVideo = new ArrayList<>();
+            List<Map> listImage = new ArrayList<>();
+            String strTemp = "";
+            for (int i = 0; i < objectSummaries.size(); i++) {
+                strTemp = objectSummaries.get(i).getKey();
+                if (strTemp.contains("lefile")) {
+                    Map map = new HashMap();
+                    map.put("address", accessUrl + "/" + strTemp);
+                    map.put("name", strTemp.replace("lefile/", ""));
+                    if (strTemp.contains(".apk")) {
+                        listApp.add(map);
+                    }else {
+                        listVideo.add(map);
+                    }
+                }
+                if (strTemp.contains("imgfile")) {
+                    Map map = new HashMap();
+                    map.put("address", accessUrl + "/" + strTemp);
+                    map.put("name", strTemp.replace("imgfile/", ""));
+                    listImage.add(map);
+                }
+            }
+            model.addAttribute("fileListApp", listApp);
+            model.addAttribute("fileListVideo", listVideo);
+            model.addAttribute("filelistImage", listImage);
+//            return "fileSources/fileSources";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "fileInfo/fileInfoEdit";
     }
 
