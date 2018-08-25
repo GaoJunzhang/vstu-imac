@@ -21,6 +21,9 @@ public class LoginLogServiceImpl extends BaseService<LoginLog> implements LoginL
         if (StringUtil.isNotEmpty(loginLog.getUsername())) {
             criteria.andLike("username", "%" + loginLog.getUsername() + "%");
         }
+        if (StringUtil.isNotEmpty(loginLog.getFileName())) {
+            criteria.andLike("fileName", "%" + loginLog.getFileName() + "%");
+        }
         if (StringUtil.isNotEmpty(loginLog.getIp())) {
             criteria.andLike("ip", "%" + loginLog.getIp() + "%");
         }

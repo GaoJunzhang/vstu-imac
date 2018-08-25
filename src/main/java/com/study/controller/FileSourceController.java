@@ -44,39 +44,37 @@ public class FileSourceController {
 
     //上传到阿里云oss
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String uploadApp(@RequestParam("lefile") MultipartFile appFile, @RequestParam("imgfile") MultipartFile imgfile,
-                            @RequestParam("appVideoFile") MultipartFile appVideoFile,
-                            @RequestParam("pdffile") MultipartFile pdffile, FileInfo fileInfo) {
-        if (appFile.isEmpty()) {
-            return "redirect:/addfileView?q=fi is empty";
-
-        }
-        if (fileInfo == null) {
-            return "redirect:/addfileView?q=file is empty";
-        }
+    public String uploadApp(FileInfo fileInfo) {
+//        if (appFile.isEmpty()) {
+//            return "redirect:/addfileView?q=fi is empty";
+//
+//        }
+//        if (fileInfo == null) {
+//            return "redirect:/addfileView?q=file is empty";
+//        }
         try {
-            String apkUrl = OSSManageUtil.uploadFile(appFile,appFile.getName());
-            String imgUrl = "";
-            if(!imgfile.isEmpty()){
-
-                imgUrl = OSSManageUtil.uploadFile(imgfile,imgfile.getName());
-            }
-            String appVideoUrl = "";
-            if(!appVideoFile.isEmpty()){
-
-                appVideoUrl = OSSManageUtil.uploadFile(appVideoFile,appVideoFile.getName());
-            }
-            String pdfUrl = "";
-            if(!pdffile.isEmpty()){
-
-                pdfUrl = OSSManageUtil.uploadFile(pdffile,pdffile.getName());
-            }
-            System.out.println("应用地址："+apkUrl);
-            System.out.println("图片地址："+imgUrl);
-            fileInfo.setFileaddress(apkUrl);
-            fileInfo.setFileimgsrc(imgUrl);
-            fileInfo.setAppvideourl(appVideoUrl);
-            fileInfo.setPdfurl(pdfUrl);
+//            String apkUrl = OSSManageUtil.uploadFile(appFile,appFile.getName());
+//            String imgUrl = "";
+//            if(!imgfile.isEmpty()){
+//
+//                imgUrl = OSSManageUtil.uploadFile(imgfile,imgfile.getName());
+//            }
+//            String appVideoUrl = "";
+//            if(!appVideoFile.isEmpty()){
+//
+//                appVideoUrl = OSSManageUtil.uploadFile(appVideoFile,appVideoFile.getName());
+//            }
+//            String pdfUrl = "";
+//            if(!pdffile.isEmpty()){
+//
+//                pdfUrl = OSSManageUtil.uploadFile(pdffile,pdffile.getName());
+//            }
+//            System.out.println("应用地址："+apkUrl);
+//            System.out.println("图片地址："+imgUrl);
+//            fileInfo.setFileaddress(apkUrl);
+//            fileInfo.setFileimgsrc(imgUrl);
+//            fileInfo.setAppvideourl(appVideoUrl);
+//            fileInfo.setPdfurl(pdfUrl);
             fileInfo.setCreatetime(VTools.getCurrentDate());
             fileInfoService.save(fileInfo);
         } catch (Exception e) {

@@ -735,7 +735,11 @@
                     layer.msg('保存成功');
                     table.ajax.reload();
                     $('#addUser').modal('hide');
-                } else if (data = "error") {
+                }else if(data == 0){
+                    layer.msg("账号已存在，请到学生账号查看")
+                    $('#addUser').modal('hide');
+                }
+                else if (data = "error") {
                     layer.msg('该用户已存在');
                     $('#addUser').modal('hide');
                 } else {

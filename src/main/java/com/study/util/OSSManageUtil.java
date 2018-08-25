@@ -170,4 +170,25 @@ public class OSSManageUtil {
         }
         return objectListing.getObjectSummaries();
     }
+
+    public List<OSSObjectSummary> pageOSSobjectSummary(String bucketName) throws IOException{
+        OSSConfigure ossConfigure = new OSSConfigure();
+        OSSClient ossClient = new OSSClient(ossConfigure.getEndpoint(), ossConfigure.getAccessKeyId(),
+                ossConfigure.getAccessKeySecret());
+        final int maxKeys = 200;
+        String nextMarker = null;
+        ObjectListing objectListing;
+        List<OSSObjectSummary> sums = null;
+        do {
+            objectListing = ossClient.listObjects(new ListObjectsRequest(bucketName).withMarker(nextMarker).withMaxKeys(maxKeys));
+            sums = objectListing.getObjectSummaries();
+            for (OSSObjectSummary s : sums) {
+                System.out.println("\t" + s.getKey());
+            }
+            nextMarker = objectListing.getNextMarker();
+        } while (objectListing.isTruncated());
+// 关闭OSSClient。
+        ossClient.shutdown();
+        return sums;
+    }
 }

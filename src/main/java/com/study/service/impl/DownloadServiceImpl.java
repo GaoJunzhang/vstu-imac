@@ -25,7 +25,7 @@ public class DownloadServiceImpl extends BaseService<Download> implements Downlo
             criteria.andLike("username", "%" + download.getUsername() + "%");
         }
         if (StringUtil.isNotEmpty(download.getFileName())) {
-            criteria.andLike("fileame", "%" + download.getFileName() + "%");
+            criteria.andLike("fileName", "%" + download.getFileName() + "%");
         }
         if (startDate!=null){
             criteria.andGreaterThan("createTime",startDate);

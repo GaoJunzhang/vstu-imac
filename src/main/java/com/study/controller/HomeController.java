@@ -1,11 +1,14 @@
 package com.study.controller;
 
+import com.aliyun.oss.model.OSSObjectSummary;
 import com.study.model.User;
+import com.study.util.OSSManageUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -14,6 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yangqj on 2017/4/21.
@@ -24,6 +32,9 @@ public class HomeController {
     public String login() {
         return "login";
     }
+
+    @Value("${accessUrl}")
+    private String accessUrl;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(HttpServletRequest request, User user, Model model) {
@@ -74,7 +85,42 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/addfileView")
-    public String addfileView() {
+    public String addfileView(Model model) {
+
+        OSSManageUtil ossManageUtil = new OSSManageUtil();
+        List<OSSObjectSummary> objectSummaries = null;
+        try {
+            objectSummaries = ossManageUtil.getOSSobjectSummary("vstu");
+            List<Map> listApp = new ArrayList<>();
+            List<Map> listVideo = new ArrayList<>();
+            List<Map> listImage = new ArrayList<>();
+            String strTemp = "";
+            for (int i = 0; i < objectSummaries.size(); i++) {
+                strTemp = objectSummaries.get(i).getKey();
+                if (strTemp.contains("lefile")) {
+                    Map map = new HashMap();
+                    map.put("address", accessUrl + "/" + strTemp);
+                    map.put("name", strTemp.replace("lefile/", ""));
+                    if (strTemp.contains(".apk")) {
+                        listApp.add(map);
+                    }else {
+                        listVideo.add(map);
+                    }
+                }
+                if (strTemp.contains("imgfile")) {
+                    Map map = new HashMap();
+                    map.put("address", accessUrl + "/" + strTemp);
+                    map.put("name", strTemp.replace("imgfile/", ""));
+                    listImage.add(map);
+                }
+            }
+            model.addAttribute("fileListApp", listApp);
+            model.addAttribute("fileListVideo", listVideo);
+            model.addAttribute("filelistImage", listImage);
+//            return "fileSources/fileSources";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "upload/uploadfile";
     }
 
@@ -105,7 +151,11 @@ public class HomeController {
         model.addAttribute("mainName",mainName+"的学生列表");
         return "student/student";
     }
+    @RequestMapping(value = "/student")
+    public String student() {
 
+        return "student/studentall";
+    }
     @RequestMapping(value = {"/workPage",""})
     public String workPage() {
         return "workPage/workPage";
