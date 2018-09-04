@@ -266,14 +266,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="addAppVideoLabel">应用选择</h4>
+                    <h4 class="modal-title" id="addAppVideoLabel">应用视频</h4>
                     <input type="hidden" id="tmpAppVideoName"/>
                     <input type="hidden" id="tmpAppVideoUrl"/>
                 </div>
                 <div class="modal-body">
                     <div class="quick-actions_homepage">
                         <ul class="quick-actions"  id="appVideo-ul">
-                            <li th:each="fileApp:${fileListVideo}" th:value="${fileApp.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileApp.name}"></span></a></li>
+                            <li th:each="fileApp:${filePreVideo}" th:value="${fileApp.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileApp.name}"></span></a></li>
                         </ul>
                     </div>
                 </div>

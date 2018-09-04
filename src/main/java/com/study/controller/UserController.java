@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add")
-    public String add(User user) {
+    public String add(User user,String mainName) {
         User u = userService.selectByUsername(user.getUsername());
         if (u != null){
             if ("0".equals(u.getLevel())){
@@ -86,6 +86,9 @@ public class UserController {
             user.setEnable(1);
             PasswordHelper passwordHelper = new PasswordHelper();
             passwordHelper.encryptPassword(user);
+            if (!StringUtils.isEmpty(mainName)){
+                user.setUsername(mainName+"_"+user.getUsername());
+            }
             userService.save(user);
             return "success";
         } catch (Exception e) {

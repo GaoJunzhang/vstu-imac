@@ -42,7 +42,7 @@
 
                 <div class="widget-box">
                     <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
-                        <h5 th:text="${mainName}"></h5>
+                        <h5 th:text="${mainName}+'的学生列表'"></h5>
                     </div>
                     <form class="form-inline">
                         <div class="form-group">
@@ -95,6 +95,7 @@
             <div class="modal-body">
                 <form id="userAddForm">
                     <div class="form-group">
+                        <input type="hidden" name="mainName" id="mainName" th:value="${mainName}"/>
                         <label class="control-label">学生账户:</label>
                         <input type="text" class="form-control" name="username" id="username" placeholder="真实姓名"/>
                         <span class="btn-action single glyphicons circle_question_mark" data-toggle="tooltip"
