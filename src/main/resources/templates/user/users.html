@@ -814,6 +814,7 @@
                     if (data == "success") {
                         layer.msg('删除成功');
                         table.ajax.reload();
+                        tableMac.ajax.reload();
                     } else {
                         layer.msg('删除失败');
                     }

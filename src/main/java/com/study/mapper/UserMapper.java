@@ -16,4 +16,6 @@ public interface UserMapper extends MyMapper<User> {
     public int delUserByparent(@Param("id") int id, @Param("enable") int enable);
 
     public int updateEnable(@Param("id") int id, @Param("enable") int enable);
+
+    public int deleteUserByparent(@Param("id") int id);
 }

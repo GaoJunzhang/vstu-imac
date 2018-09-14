@@ -330,4 +330,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         //删除子账号
         userMapper.delUserByparent(id,enable);
     }
+
+    @Override
+    public int deleteUserByparent(int id){
+        return userMapper.deleteUserByparent(id);
+    }
 }

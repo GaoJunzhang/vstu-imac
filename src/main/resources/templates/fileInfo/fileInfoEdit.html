@@ -160,15 +160,16 @@
                     </div>
                 </div>
             </div>
-            <div th:if="${filetype}==0" class="form-group">
-                <label class="col-sm-2 control-label">应用视频:</label>
+            <!--<div th:if="${filetype}==0" class="form-group">-->
+            <div class="form-group">
+                <label class="col-sm-2 control-label">预览视频:</label>
                 <div class="col-sm-10">
                     <input id="appvideourl" name="appvideourl" type="text" style="display: none;" th:value="${appVideoUrl}"/>
                     <div class="input-append">
 
                         <input id="appTmpName" readonly name="appTmpName" class="col-sm-6 input-large" type="text"
                                style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"
-                               placeholder="应用视频" th:value="${appVideoUrl}"/>
+                               placeholder="预览视频" th:value="${appVideoUrl}"/>
                         <!--<a class="col-sm-4 btn" onclick="$('input[id=appVideoFile]').click();"-->
                         <!--style="background-color:#ADFF2F; height:30px; color:#ffffff; width:100px;">上传</a>-->
                         <a class="col-sm-4 btn" onclick="$('#ossAppVideo').modal()"
@@ -307,7 +308,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="addAppVideoLabel">应用视频选择</h4>
+                    <h4 class="modal-title" id="addAppVideoLabel">预览视频选择</h4>
                     <input type="hidden" id="tmpAppVideoName"/>
                     <input type="hidden" id="tmpAppVideoUrl"/>
                 </div>
@@ -467,7 +468,7 @@
         var tmpAppVideoName = $("#tmpAppVideoName").val();
         var tmpAppVideoUrl = $("#tmpAppVideoUrl").val();
         if (tmpAppVideoName==null||tmpAppVideoName==""||tmpAppVideoUrl==null||tmpAppVideoUrl==""){
-            alert("请选择一个应用");
+            alert("请选择一个视频");
             return;
         }
         $("#appTmpName").val(tmpAppVideoName);
@@ -478,7 +479,7 @@
         var tmpImageName = $("#tmpImageName").val();
         var tmpImageUrl = $("#tmpImageUrl").val();
         if (tmpImageName==null||tmpImageName==""||tmpImageUrl==null||tmpImageUrl==""){
-            alert("请选择一个应用");
+            alert("请选择一张图片");
             return;
         }
         $("#imageTmpName").val(tmpImageName);

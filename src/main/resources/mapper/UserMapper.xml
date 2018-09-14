@@ -40,4 +40,7 @@
     <set>enable=#{enable}</set>
     where id=#{id}
   </update>
+  <delete id="deleteUserByparent" parameterType="int">
+    DELETE FROM user where parent_id=#{id}
+  </delete>
 </mapper>

@@ -73,7 +73,12 @@ public class UserController {
 
     @RequestMapping(value = "/add")
     public String add(User user,String mainName) {
-        User u = userService.selectByUsername(user.getUsername());
+        User u = null;
+        if (!StringUtils.isEmpty(mainName)){
+            u = userService.selectByUsername(mainName+"_"+user.getUsername());
+        }else {
+            u = userService.selectByUsername(user.getUsername());
+        }
         if (u != null){
             if ("0".equals(u.getLevel())){
                 return u.getLevel();
@@ -100,7 +105,10 @@ public class UserController {
     @RequestMapping(value = "/delete")
     public String delete(Integer id) {
         try {
-            userService.delAllLevel(id,0);
+//            userService.delAllLevel(id,0);
+            userService.delUser(id);
+            //删除子账号
+            userService.deleteUserByparent(id);
             return "success";
         } catch (Exception e) {
             e.printStackTrace();

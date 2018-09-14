@@ -35,5 +35,6 @@ public interface UserService extends IService<User>{
 
     public void delAllLevel(int id,int enable);
 
+    public int deleteUserByparent(int id);
 
 }
